@@ -3,6 +3,8 @@ import { COACHES, POSTS } from "@/lib/data";
 import { LEGAL_DOCS } from "@/lib/legal";
 import { SITE } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = ["", "/about", "/training", "/memberships", "/calendar", "/camps-clinics", "/content", "/coaches", "/gallery", "/contact", "/book"];
   const lastModified = new Date("2026-10-01");

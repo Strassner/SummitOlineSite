@@ -2,9 +2,12 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { SITE } from "@/lib/site";
 import { CheckIcon } from "./Icons";
 import { Field } from "./AuthForms";
 import { Button } from "./ui";
+
+const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "";
 
 export const CONTACT_TOPICS = ["General Question", "Private Training", "Membership", "Camps/Clinics", "Team Training", "Partnership/Sponsorship"];
 
@@ -18,11 +21,20 @@ export function ContactForm() {
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
-    const body = Object.fromEntries(new FormData(e.currentTarget));
+    const body = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    if (body.website) return setStatus("sent"); // honeypot: silently drop bots
+
+    // Static hosting has no server, so submit to a form service (Formspree, Basin, etc.) when configured,
+    // otherwise fall back to the visitor's email app.
+    if (!CONTACT_ENDPOINT) {
+      const subject = encodeURIComponent(`[${body.topic}] ${body.name}`);
+      const text = encodeURIComponent([body.message, "", body.name, body.email, body.phone].filter((l) => l !== undefined && l !== "").join("\n"));
+      window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${text}`;
+      return setStatus("sent");
+    }
     try {
-      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-      const json = await res.json();
-      if (!res.ok || !json.ok) throw new Error(json.error ?? "Something went wrong.");
+      const res = await fetch(CONTACT_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) });
+      if (!res.ok) throw new Error("Something went wrong. Please email us directly.");
       setStatus("sent");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");

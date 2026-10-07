@@ -2,11 +2,28 @@
 
 Next.js (App Router) + React + TypeScript + Tailwind CSS v4, built from the *Website Design & Development Brief*.
 
+## Run locally
+
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build && npm start
+npm run dev        # dev server with hot reload: http://localhost:3000
+npm run build      # static export into ./out
+npm run preview    # serve ./out like production: http://localhost:3001
 ```
+
+## Deploy to GitHub Pages
+
+The site is a static export (`output: "export"`), deployed by `.github/workflows/deploy.yml` on every push to `main`.
+
+1. Push the repo to GitHub (`origin` is already set).
+2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions** (one-time).
+3. `git push origin main`. The workflow builds with the base path `/<repo-name>` and publishes to
+   `https://<owner>.github.io/<repo-name>/`.
+
+Using a custom domain or a `<owner>.github.io` repo? Remove `NEXT_PUBLIC_BASE_PATH` from the workflow and set `NEXT_PUBLIC_SITE_URL` to the real URL.
+
+Static hosting means no server routes. The contact form posts to `NEXT_PUBLIC_CONTACT_ENDPOINT` (e.g. Formspree) if set, otherwise opens the visitor's email app.
+Local images in `public/` referenced from `<Photo src>` need the base path prefix on Pages (use `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/photos/x.jpg`).
 
 ## What's built
 
@@ -55,7 +72,7 @@ All placeholder content is marked `PLACEHOLDER`:
 | Private video | Mux, Vimeo or Cloudflare Stream; check the member's plan server-side |
 | Email / SMS reminders | Resend or Postmark + Twilio, triggered from booking events; calendar invite via the `.ics` generator in `BookingFlow` |
 | CMS for non-coders | Sanity or Payload, or the admin portal backed by the DB |
-| Contact form | `src/app/api/contact/route.ts` validates + honeypot; wire to email/CRM |
+| Contact form | `src/components/ContactForm.tsx` (honeypot included); set `NEXT_PUBLIC_CONTACT_ENDPOINT` or add a server route once off Pages |
 | Hosting | Vercel (HTTPS, CDN, image optimization) |
 | Analytics | Set `NEXT_PUBLIC_GA_ID`; add Search Console + Business Profile verification |
 | Store / digital products | Add `/shop` using Stripe Products; layout, `Plan`/`Session` types and cart-ready cards are designed to extend |
