@@ -24,14 +24,15 @@ export default function MembershipsPage() {
         intro="Consistent development beats occasional effort. Choose a membership, book your sessions and track your credits from your account."
       />
 
-      <Section>
+      <Section tone="light">
         <Reveal>
-          <PlansGrid />
+          <Heading light eyebrow="Packages" title="Membership packages" />
+          <PlansGrid tone="light" />
         </Reveal>
-        <p className="mt-6 text-sm text-ash">Cancel or change plans any time from your account. Pricing, session counts and benefits are managed in the admin portal.</p>
+        <p className="mt-6 text-sm text-neutral-500">Cancel or change plans any time from your account. Pricing, session counts and benefits are managed in the admin portal.</p>
       </Section>
 
-      <Section tone="light">
+      <Section tone="light" className="!pt-0">
         <Reveal>
           <Heading light eyebrow="Compare" title="Side by side." />
           <CompareTable />

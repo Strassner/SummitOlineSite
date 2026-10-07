@@ -11,7 +11,7 @@ import { Button, Pill } from "./ui";
 export function EventsList() {
   const app = useApp();
   if (!app.ready) return <div className="h-96 animate-pulse bg-steel" aria-busy="true" />;
-  const events = getSessions(app).filter((s) => (s.kind === "camp" || s.kind === "clinic") && s.date >= app.today);
+  const events = getSessions(app).filter((s) => (s.kind === "camp" || s.kind === "clinic" || s.kind === "event") && s.date >= app.today);
   if (events.length === 0) return <p className="border border-iron p-10 text-center text-ash">No camps or clinics are scheduled right now. Check back soon.</p>;
   return (
     <div className="space-y-6">
@@ -54,7 +54,7 @@ export function EventsList() {
                 </div>
               </div>
               <Button href={`/book?session=${e.id}`} size="lg" disabled={left === 0} className={left === 0 ? "pointer-events-none" : ""} arrow>
-                {left === 0 ? "Full" : "Register now"}
+                {left === 0 ? "Full" : "Register Now"}
               </Button>
             </div>
           </article>

@@ -1,4 +1,4 @@
-export type SessionKind = "private" | "small-group" | "team" | "camp" | "clinic";
+export type SessionKind = "private" | "small-group" | "team" | "camp" | "clinic" | "event";
 
 export interface Session {
   id: string;
@@ -51,6 +51,8 @@ export interface Plan {
   featured?: boolean;
   /** Member price discount on drop-in session rates (0-1) */
   memberDiscount: number;
+  description: string;
+  photo?: string;
 }
 
 export interface Testimonial {
@@ -71,11 +73,14 @@ export interface ContentPost {
   body: string[];
   date: string;
   members?: boolean;
+  /** Public video posts (YouTube/Vimeo embed id or URL) */
+  video?: string;
 }
 
 export interface LibraryItem {
   id: string;
-  section: "Technique Library" | "Training Videos" | "Football IQ";
+  section: "Technique Library" | "Training Videos" | "Football IQ" | "Documents";
+  url?: string;
   title: string;
   summary: string;
   duration: string;

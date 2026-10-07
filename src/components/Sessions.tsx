@@ -15,7 +15,7 @@ export function coachName(app: AppState, id: string) {
 export function SessionRow({ session, app, tone = "dark" }: { session: Session; app: AppState; tone?: "dark" | "light" }) {
   const left = spotsLeft(app, session);
   const full = left === 0;
-  const isEvent = session.kind === "camp" || session.kind === "clinic";
+  const isEvent = session.kind === "camp" || session.kind === "clinic" || session.kind === "event";
   const light = tone === "light";
   return (
     <article className={`grid gap-4 border p-5 sm:grid-cols-[7rem_1fr_auto] sm:items-center sm:gap-6 ${light ? "border-neutral-300 bg-white" : "border-iron bg-steel"}`}>
@@ -41,7 +41,7 @@ export function SessionRow({ session, app, tone = "dark" }: { session: Session; 
           <p className={`text-xs uppercase tracking-widest ${light ? "text-neutral-500" : "text-ash"}`}>{full ? "Sold out" : `${left} of ${session.capacity} ${session.capacity === 1 ? "spot" : "spots"}`}</p>
         </div>
         <Button href={`/book?session=${session.id}`} variant={light ? "dark" : "primary"} size="sm" disabled={full} className={full ? "pointer-events-none opacity-40" : ""}>
-          {isEvent ? "Register" : "Book"}
+          {isEvent ? "Register Now" : "Book"}
         </Button>
       </div>
     </article>

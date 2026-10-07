@@ -3,55 +3,58 @@ import { LEGAL, NAV, SITE, SOCIALS } from "@/lib/site";
 import { SOCIAL_ICONS } from "./Icons";
 import { Logo } from "./Logo";
 
+/** Footer follows the design reference: big wordmark + tagline left, big email + social icons right. */
 export function Footer() {
   return (
-    <footer className="border-t border-iron bg-black text-bone">
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <footer className="bg-white text-ink">
+      <div className="mx-auto max-w-[90rem] px-5 pb-10 pt-16 sm:px-8 sm:pt-24">
+        <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:justify-between">
           <div>
-            <Logo className="text-white" markClassName="h-12 w-12" />
-            <p className="mt-6 max-w-xs font-display text-2xl font-extrabold uppercase leading-tight tracking-wide text-white">
-              Serious training.
-              <br />
-              Serious development.
-            </p>
-            <div className="mt-6 space-y-1 text-sm text-ash">
-              <p>{SITE.location.full}</p>
-              <p>
-                <a href={SITE.phoneHref} className="hover:text-white">
-                  {SITE.phone}
-                </a>
-              </p>
-              <p>
-                <a href={`mailto:${SITE.email}`} className="hover:text-white">
-                  {SITE.email}
-                </a>
-              </p>
+            <div className="flex items-center gap-4">
+              <Logo className="h-16 w-16 sm:h-20 sm:w-20" />
+              <p className="font-display text-4xl uppercase leading-none sm:text-6xl">Summit Line Academy</p>
+            </div>
+            <p className="mt-4 text-base">{SITE.tagline}</p>
+          </div>
+          <div className="xl:text-right">
+            <a href={`mailto:${SITE.email}`} className="whitespace-nowrap font-display text-[1.35rem] uppercase leading-none hover:text-gold-dim min-[420px]:text-3xl sm:text-5xl">
+              {SITE.email}
+            </a>
+            <div className="mt-5 flex gap-5 xl:justify-end">
+              {SOCIALS.map((s) => {
+                const Icon = SOCIAL_ICONS[s.key];
+                return (
+                  <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} className="hover:text-gold-dim">
+                    <Icon className="h-6 w-6" />
+                  </a>
+                );
+              })}
             </div>
           </div>
+        </div>
 
+        <div className="mt-16 grid gap-10 border-t border-neutral-200 pt-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h2 className="mb-5 font-display text-sm font-bold uppercase tracking-[0.3em] text-gold">Navigation</h2>
-            <ul className="space-y-3">
+            <h2 className="mb-4 font-display text-lg uppercase tracking-[0.15em] text-gold-dim">Navigation</h2>
+            <ul className="space-y-2.5 text-sm">
               {[...NAV, { href: "/gallery", label: "Gallery" }].map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} className="text-mist hover:text-white">
+                  <Link href={n.href} className="hover:text-gold-dim">
                     {n.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
           <div>
-            <h2 className="mb-5 font-display text-sm font-bold uppercase tracking-[0.3em] text-gold">Follow</h2>
-            <ul className="space-y-3">
+            <h2 className="mb-4 font-display text-lg uppercase tracking-[0.15em] text-gold-dim">Follow</h2>
+            <ul className="space-y-2.5 text-sm">
               {SOCIALS.map((s) => {
                 const Icon = SOCIAL_ICONS[s.key];
                 return (
                   <li key={s.key}>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-mist hover:text-white">
-                      <Icon className="h-5 w-5" />
+                    <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 hover:text-gold-dim">
+                      <Icon className="h-4 w-4" />
                       {s.label}
                     </a>
                   </li>
@@ -59,25 +62,37 @@ export function Footer() {
               })}
             </ul>
           </div>
-
           <div>
-            <h2 className="mb-5 font-display text-sm font-bold uppercase tracking-[0.3em] text-gold">Legal</h2>
-            <ul className="space-y-3">
+            <h2 className="mb-4 font-display text-lg uppercase tracking-[0.15em] text-gold-dim">Legal</h2>
+            <ul className="space-y-2.5 text-sm">
               {LEGAL.map((l) => (
                 <li key={l.slug}>
-                  <Link href={`/legal/${l.slug}`} className="text-mist hover:text-white">
+                  <Link href={`/legal/${l.slug}`} className="hover:text-gold-dim">
                     {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+          <div>
+            <h2 className="mb-4 font-display text-lg uppercase tracking-[0.15em] text-gold-dim">Contact</h2>
+            <ul className="space-y-2.5 text-sm">
+              <li>{SITE.location.full}</li>
+              <li>
+                <a href={SITE.phoneHref} className="hover:text-gold-dim">
+                  {SITE.phone}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${SITE.email}`} className="hover:text-gold-dim">
+                  {SITE.email}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-iron pt-8 text-sm text-ash sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
-          <p className="font-display uppercase tracking-[0.25em]">Discover · Learn · Purchase · Book · Train · Return</p>
-        </div>
+        <p className="mt-12 text-xs text-neutral-500">© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
       </div>
     </footer>
   );

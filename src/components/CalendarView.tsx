@@ -8,7 +8,7 @@ import { getCoaches, getSessions, spotsLeft, useApp } from "@/lib/store";
 import type { SessionKind } from "@/lib/types";
 import { SessionRow } from "./Sessions";
 
-const KINDS: ("all" | SessionKind)[] = ["all", "private", "small-group", "clinic", "camp"];
+const KINDS: ("all" | SessionKind)[] = ["all", "private", "small-group", "clinic", "camp", "event"];
 const MONTHS = 3;
 
 export function CalendarView() {

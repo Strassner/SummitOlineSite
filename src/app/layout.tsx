@@ -1,18 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Inter } from "next/font/google";
+import { Anton, Epilogue } from "next/font/google";
 import Script from "next/script";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { SITE } from "@/lib/site";
+import { asset, SITE, SOCIALS } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const barlow = Barlow_Condensed({
-  variable: "--font-barlow",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  display: "swap",
-});
+// Condensed display face + clean geometric body face, matching the design reference screenshots
+const epilogue = Epilogue({ variable: "--font-epilogue", subsets: ["latin"], display: "swap" });
+const anton = Anton({ variable: "--font-anton", subsets: ["latin"], weight: "400", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -38,13 +34,15 @@ export const metadata: Metadata = {
     title: "Summit Line Academy | Offensive Line Training in Kansas City",
     description: SITE.description,
     locale: "en_US",
+    images: [{ url: asset("/brand/logo-sheet.png"), width: 1254, height: 1254, alt: "Summit Line Academy logos" }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
+  verification: SITE.gscVerification ? { google: SITE.gscVerification } : undefined,
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
@@ -55,6 +53,9 @@ const jsonLd = {
   name: SITE.name,
   description: SITE.description,
   url: SITE.url,
+  logo: `${SITE.url}/brand/badge.png`,
+  sameAs: SOCIALS.map((s) => s.href),
+  slogan: SITE.tagline,
   email: SITE.email,
   telephone: SITE.phone,
   address: { "@type": "PostalAddress", addressLocality: SITE.location.city, addressRegion: SITE.location.region, addressCountry: "US" },
@@ -64,8 +65,8 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${barlow.variable}`}>
-      <body className="flex min-h-screen flex-col">
+    <html lang="en" className={`${epilogue.variable} ${anton.variable}`}>
+      <body className="flex min-h-screen flex-col bg-white text-ink">
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
         </noscript>
@@ -73,7 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <Header />
-        <main id="main" className="flex-1">
+        <main id="main" className="flex-1 bg-ink text-bone">
           {children}
         </main>
         <Footer />

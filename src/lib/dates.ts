@@ -37,6 +37,7 @@ export function formatRange(start: string, end: string): string {
 }
 
 export function money(n: number): string {
+  if (n === 0) return "Free";
   return n % 1 === 0 ? `$${n}` : `$${n.toFixed(2)}`;
 }
 

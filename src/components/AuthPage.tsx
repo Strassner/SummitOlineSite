@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Container } from "./ui";
 import { SignInForm, SignUpForm } from "./AuthForms";
-import { LogoMark } from "./Logo";
+import { Watermark } from "./Logo";
 
 export function safeNext(next: string | null, fallback = "/account") {
   return next && next.startsWith("/") && !next.startsWith("//") ? next : fallback;
@@ -18,11 +18,11 @@ export function AuthPage({ mode }: { mode: "login" | "signup" }) {
   const done = () => router.push(next);
 
   return (
-    <div className="photo-slot relative flex min-h-[70svh] items-center py-16 sm:py-24">
-      <LogoMark className="pointer-events-none absolute -left-20 top-0 h-[34rem] w-[34rem] text-white opacity-[0.04]" />
+    <div className="photo-slot relative flex min-h-[70svh] items-center overflow-hidden py-16 text-bone sm:py-24">
+      <Watermark className="absolute -left-24 top-0 h-[34rem] w-[34rem] opacity-[0.06]" />
       <Container className="relative">
         <div className="mx-auto max-w-md border border-iron bg-coal/95 p-8 sm:p-10">
-          <h1 className="font-display text-5xl font-extrabold uppercase leading-none">{mode === "login" ? "Welcome back" : "Join Summit"}</h1>
+          <h1 className="font-display text-5xl uppercase leading-none">{mode === "login" ? "Welcome back" : "Join Summit"}</h1>
           <p className="mb-8 mt-3 text-ash">
             {mode === "login" ? "Sign in to manage bookings, memberships and member content." : "Create a parent account, then add one or more athletes."}
           </p>

@@ -1,38 +1,36 @@
-import { SITE } from "@/lib/site";
+import Image from "next/image";
+import { asset, SITE } from "@/lib/site";
 
 /**
- * Summit Line Academy brand marks (PLACEHOLDER artwork until the official logo files are supplied).
- * Everything uses `currentColor`, so the same component renders the white, black or any-tone logo on a
- * transparent background: just set a text color class (e.g. `text-white` / `text-black`).
+ * The official Summit Line Academy badge (from the design brief) is the site logo.
+ * The art is a black disc with a white ring, so it reads on both black and white backgrounds.
+ * Replace /public/brand/badge.png with a vector export when one is available.
  */
-
-export function LogoMark({ className = "h-9 w-9" }: { className?: string }) {
+export function Logo({
+  className = "h-12 w-12",
+  priority = false,
+  decorative = false,
+}: {
+  /** Tailwind sizing for the badge, e.g. "h-12 w-12" */
+  className?: string;
+  priority?: boolean;
+  /** Use for watermarks so screen readers skip them */
+  decorative?: boolean;
+}) {
   return (
-    <svg viewBox="0 0 64 64" className={className} role="img" aria-label={`${SITE.name} mark`} fill="currentColor">
-      {/* summit above the line */}
-      <path d="M32 5 45 29H19z" />
-      {/* base below the line */}
-      <path d="M12 37h40l9 22H3z" />
-    </svg>
+    <Image
+      src={asset("/brand/badge.png")}
+      alt={decorative ? "" : `${SITE.name} logo`}
+      aria-hidden={decorative || undefined}
+      width={475}
+      height={465}
+      priority={priority}
+      className={`object-contain ${className}`}
+    />
   );
 }
 
-export function Logo({
-  className = "",
-  markClassName = "h-9 w-9",
-  stacked = false,
-}: {
-  className?: string;
-  markClassName?: string;
-  stacked?: boolean;
-}) {
-  return (
-    <span className={`inline-flex items-center gap-3 ${stacked ? "flex-col" : ""} ${className}`}>
-      <LogoMark className={markClassName} />
-      <span className={`flex flex-col leading-none ${stacked ? "items-center" : ""}`}>
-        <span className="font-display text-[1.65rem] font-extrabold uppercase tracking-[0.04em]">Summit</span>
-        <span className="mt-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.42em] opacity-80">Line Academy</span>
-      </span>
-    </span>
-  );
+/** Large faint badge used as a background watermark in dark sections */
+export function Watermark({ className = "" }: { className?: string }) {
+  return <Logo decorative className={`pointer-events-none select-none ${className}`} />;
 }

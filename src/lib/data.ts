@@ -4,6 +4,7 @@
  * real items listed in section 35 of the design brief.
  */
 import { addDays, weekdayIndex } from "./dates";
+import { SITE } from "./site";
 import type { Coach, ContentPost, GalleryItem, LibraryItem, Plan, Session, Testimonial } from "./types";
 
 export const TRAINING_LOCATION = "Summit Training Site · Kansas City, MO"; // PLACEHOLDER
@@ -62,6 +63,7 @@ export const PLANS: Plan[] = [
     id: "starter",
     name: "Summit Starter",
     tagline: "Build the foundation.",
+    description: "Consistent, coached development: small-group sessions every month plus access to the Summit member library.",
     price: 129,
     billing: "month",
     sessions: 4,
@@ -77,6 +79,7 @@ export const PLANS: Plan[] = [
     id: "elite",
     name: "Summit Elite",
     tagline: "Train with priority.",
+    description: "For athletes who want more reps and first pick of the schedule, with group or private sessions and film study.",
     price: 229,
     billing: "month",
     sessions: 8,
@@ -94,6 +97,7 @@ export const PLANS: Plan[] = [
     id: "unlimited",
     name: "Summit Unlimited",
     tagline: "All in, all season.",
+    description: "Train as often as you want in small groups, plus a monthly one-on-one development session and premium member benefits.",
     price: 389,
     billing: "month",
     sessions: null,
@@ -140,6 +144,7 @@ const WEEKLY: Template[] = [
 const EVENTS: { offset: number; t: Omit<Template, "weekday" | "key"> & { key: string; bring: string[] } }[] = [
   { offset: 12, t: { key: "clinic-pass", start: "09:00", end: "12:00", kind: "clinic", title: "Pass Protection Clinic", coachId: "coach-2", capacity: 24, baseTaken: 11, price: 65, credits: 0, ageRange: "Grades 8–12", description: "A half-day deep dive on pass sets, hand placement, anchor and blitz pickup with live reps and film.", bring: ["Cleats & turf shoes", "Football pants & practice jersey", "Water bottle", "Mouthguard"] } },
   { offset: 19, t: { key: "clinic-run", start: "09:00", end: "12:00", kind: "clinic", title: "Run Game & Combo Blocks Clinic", coachId: "coach-3", capacity: 24, baseTaken: 7, price: 65, credits: 0, ageRange: "Grades 8–12", description: "Drive blocks, double teams, climbs and pulls, taught by position with a focus on leverage and finish.", bring: ["Cleats & turf shoes", "Football pants & practice jersey", "Water bottle", "Mouthguard"] } },
+  { offset: 26, t: { key: "event-showcase", start: "10:00", end: "12:00", kind: "event", title: "Summit Open House & Athlete Showcase", coachId: "coach-1", capacity: 60, baseTaken: 14, price: 0, credits: 0, ageRange: "All ages & families", description: "Meet the coaches, see a live training demo, tour the program and learn how Summit develops linemen. Free to attend: register to reserve your spot.", bring: ["Athletic shoes", "Water bottle", "Questions for the coaches"] } },
   { offset: 33, t: { key: "camp-summit", start: "08:30", end: "15:00", kind: "camp", title: "Summit OL Camp · Full Day", coachId: "coach-1", capacity: 40, baseTaken: 18, price: 175, credits: 0, ageRange: "Grades 7–12", description: "Our flagship day camp: technique stations, 1-on-1s, football IQ sessions and a competitive finish. Lunch not included.", bring: ["Cleats & turf shoes", "Practice gear", "Lunch & water", "Notebook"] } },
   { offset: 47, t: { key: "clinic-youth", start: "13:00", end: "15:00", kind: "clinic", title: "Youth OL Skills Clinic", coachId: "coach-1", capacity: 30, baseTaken: 9, price: 45, credits: 0, ageRange: "Ages 9–13", description: "A fun, high-rep introduction to offensive line fundamentals for younger athletes.", bring: ["Cleats or athletic shoes", "Water bottle", "Mouthguard"] } },
   { offset: 61, t: { key: "camp-college", start: "09:00", end: "14:00", kind: "camp", title: "College Prep OL Camp", coachId: "coach-2", capacity: 30, baseTaken: 12, price: 195, credits: 0, ageRange: "Grades 10–12", description: "Recruit-focused development: advanced technique, film review and measurable testing guidance.", bring: ["Cleats & turf shoes", "Practice gear", "Lunch & water", "Highlight film link (optional)"] } },
@@ -201,6 +206,7 @@ export const KIND_LABEL: Record<Session["kind"], string> = {
   team: "Team Training",
   camp: "Camp",
   clinic: "Clinic",
+  event: "Special Event",
 };
 
 /* --------------------------------- services --------------------------------- */
@@ -284,6 +290,8 @@ export const POST_CATEGORIES = [
   "Strength & Conditioning",
   "Coach Education",
   "Athlete Development",
+  "Blog",
+  "Videos",
 ] as const;
 
 export const POSTS: ContentPost[] = [
@@ -391,9 +399,43 @@ export const POSTS: ContentPost[] = [
       "Finish with a few activation reps: glute bridges, band walks and bear crawls. Keep it controlled, not rushed.",
     ],
   },
+  {
+    slug: "welcome-to-summit-line-academy",
+    category: "Blog",
+    title: "Welcome to Summit Line Academy",
+    excerpt: "Why we built an academy for one position, and what linemen can expect when they train with us.",
+    readTime: "3 min",
+    date: "2026-10-01",
+    body: [
+      "Offensive linemen are the foundation of every offense, yet most training is built for everyone but them. Summit Line Academy exists to change that.",
+      "Here you will find position-specific coaching, small groups that keep every rep coached, and a member library you can use between sessions.",
+      "Welcome to the climb. Stronger linemen, higher standards.",
+    ],
+  },
+  {
+    slug: "video-stance-and-start",
+    category: "Videos",
+    title: "Video: Stance & Start in 90 Seconds",
+    excerpt: "A quick look at the stance checkpoints we coach every session.",
+    readTime: "1:30",
+    date: "2026-09-20",
+    video: "",
+    body: ["Checkpoints: feet shoulder-width, weight balanced, hips low, back flat, eyes up."],
+  },
+  {
+    slug: "video-pass-set-footwork",
+    category: "Videos",
+    title: "Video: Pass-Set Footwork Drill",
+    excerpt: "A simple drill to clean up your kick slide.",
+    readTime: "2:10",
+    date: "2026-09-08",
+    video: "",
+    body: ["Focus on a short first step, a quick second step and a base that never crosses over."],
+  },
 ];
 
 export const LIBRARY: LibraryItem[] = [
+  // Technique Library
   { id: "l1", section: "Technique Library", title: "Stance", summary: "Balanced, repeatable and ready in any direction.", duration: "6:12", members: true },
   { id: "l2", section: "Technique Library", title: "First Step", summary: "Short, low and powerful: win the rep in 12 inches.", duration: "5:40", members: true },
   { id: "l3", section: "Technique Library", title: "Hand Placement", summary: "Inside hands, tight elbows, locked wrists.", duration: "8:05", members: true },
@@ -401,14 +443,26 @@ export const LIBRARY: LibraryItem[] = [
   { id: "l5", section: "Technique Library", title: "Run Blocking", summary: "Drive, reach and cut-off fundamentals.", duration: "10:15", members: true },
   { id: "l6", section: "Technique Library", title: "Combo Blocks", summary: "Two blockers, one defender, clean exchange.", duration: "9:30", members: true },
   { id: "l7", section: "Technique Library", title: "Pulling", summary: "Pull paths, footwork and finding the target.", duration: "7:48", members: true },
-  { id: "l8", section: "Technique Library", title: "Footwork & Leverage", summary: "Pad level and base: the foundation of everything.", duration: "8:55", members: true },
-  { id: "l9", section: "Technique Library", title: "Anchor & Strike Timing", summary: "Sit down, absorb the bull rush and strike on time.", duration: "6:30", members: true },
-  { id: "l10", section: "Training Videos", title: "Lineman Mobility Flow", summary: "15 minutes for hips, ankles and thoracic spine.", duration: "15:00", members: true },
-  { id: "l11", section: "Training Videos", title: "Drill Demonstrations: Footwork Ladder", summary: "Five core footwork drills you can do anywhere.", duration: "12:10", members: true },
-  { id: "l12", section: "Training Videos", title: "Strength Day: Lower Body", summary: "Squat, hinge and single-leg for linemen.", duration: "22:40", members: true },
+  { id: "l8", section: "Technique Library", title: "Footwork", summary: "Short, quick, in-balance steps that keep your base under you.", duration: "8:55", members: true },
+  { id: "l8b", section: "Technique Library", title: "Leverage", summary: "Pad level, hip bend and winning the low-man battle.", duration: "7:10", members: true },
+  { id: "l9", section: "Technique Library", title: "Anchor", summary: "Sit down, absorb the bull rush and re-anchor.", duration: "6:30", members: true },
+  { id: "l9b", section: "Technique Library", title: "Strike Timing", summary: "When to punch, how to time it and how to re-strike.", duration: "5:50", members: true },
+  // Training Videos
+  { id: "l10", section: "Training Videos", title: "Drill Demonstration: Footwork Ladder", summary: "Five core footwork drills you can do anywhere.", duration: "12:10", members: true },
+  { id: "l10b", section: "Training Videos", title: "Technique Breakdown: Kick Slide", summary: "Frame-by-frame breakdown of the pass-set kick slide.", duration: "9:20", members: true },
+  { id: "l11", section: "Training Videos", title: "Workout: Lineman Conditioning", summary: "A short, hard conditioning session built for linemen.", duration: "18:00", members: true },
+  { id: "l11b", section: "Training Videos", title: "Mobility Flow", summary: "15 minutes for hips, ankles and thoracic spine.", duration: "15:00", members: true },
+  { id: "l12", section: "Training Videos", title: "Strength Training: Lower Body", summary: "Squat, hinge and single-leg for linemen.", duration: "22:40", members: true },
+  // Football IQ
   { id: "l13", section: "Football IQ", title: "Defensive Fronts", summary: "Identify even, odd and bear fronts quickly.", duration: "14:05", members: true },
   { id: "l14", section: "Football IQ", title: "Blitz Identification", summary: "Count threats and recognize pressure looks.", duration: "13:20", members: true },
-  { id: "l15", section: "Football IQ", title: "Protection Calls & Film Study", summary: "Slides, hot routes and how to study your own tape.", duration: "18:00", members: true },
+  { id: "l14b", section: "Football IQ", title: "Protection Calls", summary: "Slides, man protection and communicating the call.", duration: "11:45", members: true },
+  { id: "l15", section: "Football IQ", title: "Film Study: Your Own Tape", summary: "How to break down and grade your own film.", duration: "18:00", members: true },
+  { id: "l15b", section: "Football IQ", title: "Defensive Recognition", summary: "Read leverage, alignments and tells before the snap.", duration: "12:30", members: true },
+  // Documents (downloadable resources)
+  { id: "d1", section: "Documents", title: "Summit Athlete Handbook (PDF)", summary: "Expectations, schedule, what to bring and how to get the most from training.", duration: "PDF", members: true },
+  { id: "d2", section: "Documents", title: "Offseason Training Plan (PDF)", summary: "A 12-week lineman development plan.", duration: "PDF", members: true },
+  { id: "d3", section: "Documents", title: "Digital Waiver & Release", summary: "Complete or review the liability waiver, assumption of risk and photo/video release.", duration: "Form", members: false, url: SITE.waiverUrl },
 ];
 
 export const GALLERY: GalleryItem[] = [

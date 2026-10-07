@@ -11,8 +11,8 @@
   --color-gold: #b39a62;
   --color-gold-dim: #8a7646;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-barlow), "Arial Narrow", Impact, sans-serif;
+  --font-sans: var(--font-epilogue), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif;
 
   --animate-marquee: marquee 38s linear infinite;
   @keyframes marquee {
@@ -25,20 +25,22 @@
   }
 }
 
-:root {
-  color-scheme: dark;
-}
-
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-bone);
+  background: #fff;
+  color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Anton is a single-weight face: never let the browser fake a bold */
+.font-display {
+  font-synthesis: none;
+  font-weight: 400;
 }
 
 ::selection {
@@ -51,10 +53,7 @@ body {
   outline-offset: 3px;
 }
 
-/* Angled "cut corner" used on buttons and cards for an athletic feel */
-.cut {
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
-}
+/* Angled corner, used sparingly on large feature cards */
 .cut-lg {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
 }
@@ -101,16 +100,23 @@ body {
   }
 }
 
-/* Form controls */
+/* Form controls: pill inputs, matching the design reference. Dark by default, white inside .light sections */
 .field {
   width: 100%;
   background: var(--color-steel);
   border: 1px solid var(--color-iron);
   color: var(--color-bone);
-  padding: 0.85rem 1rem;
+  padding: 0.8rem 1.25rem;
   font-size: 1rem;
   min-height: 3rem;
+  border-radius: 9999px;
   transition: border-color 0.2s;
+}
+textarea.field {
+  border-radius: 1.5rem;
+}
+select.field {
+  padding-right: 2rem;
 }
 .field:focus {
   border-color: var(--color-gold);
@@ -121,6 +127,20 @@ body {
 }
 .light .field {
   background: #fff;
-  border-color: #d4d4d0;
+  border-color: #0a0a0a;
   color: #0a0a0a;
+}
+.light .field::placeholder {
+  color: #8c8c8c;
+}
+.light .field:focus {
+  border-color: var(--color-gold-dim);
+}
+
+@media print {
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
 }

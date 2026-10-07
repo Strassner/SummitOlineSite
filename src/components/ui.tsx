@@ -1,30 +1,32 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { asset } from "@/lib/site";
 import { ArrowIcon } from "./Icons";
-import { LogoMark } from "./Logo";
+import { Logo, Watermark } from "./Logo";
 
 /* -------------------------------- Button -------------------------------- */
 
 type Variant = "primary" | "outline" | "dark" | "outlineDark" | "gold" | "ghost";
 type Size = "md" | "lg" | "sm";
 
+// Pill buttons, as in the design reference: black pills on white, white pills on dark.
 const VARIANTS: Record<Variant, string> = {
   primary: "bg-white text-black hover:bg-gold",
-  outline: "border border-white/50 text-white hover:bg-white hover:text-black",
+  outline: "border border-white/60 text-white hover:bg-white hover:text-black",
   dark: "bg-black text-white hover:bg-iron",
   outlineDark: "border border-black text-black hover:bg-black hover:text-white",
   gold: "bg-gold text-black hover:bg-white",
   ghost: "text-white hover:text-gold",
 };
 const SIZES: Record<Size, string> = {
-  sm: "min-h-10 px-4 text-xs",
-  md: "min-h-12 px-6 text-sm",
-  lg: "min-h-14 px-8 text-base",
+  sm: "min-h-10 px-5 text-sm",
+  md: "min-h-12 px-7 text-base",
+  lg: "min-h-14 px-9 text-lg",
 };
 
 function btnClass(variant: Variant, size: Size, extra = "") {
-  return `cut inline-flex items-center justify-center gap-2 font-display font-bold uppercase tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${VARIANTS[variant]} ${SIZES[size]} ${extra}`;
+  return `inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-display uppercase tracking-[0.08em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${VARIANTS[variant]} ${SIZES[size]} ${extra}`;
 }
 
 export function Button({
@@ -50,9 +52,9 @@ export function Button({
     </>
   );
   if (href) {
-    const external = /^https?:/.test(href);
+    const external = /^(https?:|mailto:|tel:)/.test(href);
     return external ? (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={btnClass(variant, size, className)}>
+      <a href={href} {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={btnClass(variant, size, className)}>
         {inner}
       </a>
     ) : (
@@ -78,7 +80,7 @@ type Tone = "dark" | "light" | "steel";
 const TONES: Record<Tone, string> = {
   dark: "bg-ink text-bone",
   steel: "bg-coal text-bone",
-  light: "light bg-bone text-ink",
+  light: "light bg-white text-ink",
 };
 
 export function Section({
@@ -119,12 +121,12 @@ export function Heading({
   return (
     <div className={`mb-12 max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}>
       {eyebrow && (
-        <p className={`mb-4 flex items-center gap-3 font-display text-sm font-bold uppercase tracking-[0.3em] ${light ? "text-gold-dim" : "text-gold"} ${align === "center" ? "justify-center" : ""}`}>
+        <p className={`mb-4 flex items-center gap-3 font-display text-base uppercase tracking-[0.25em] ${light ? "text-gold-dim" : "text-gold"} ${align === "center" ? "justify-center" : ""}`}>
           <span className="h-px w-8 bg-current" />
           {eyebrow}
         </p>
       )}
-      <Tag className="font-display text-5xl font-extrabold uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">{title}</Tag>
+      <Tag className="font-display text-5xl uppercase leading-[1] sm:text-6xl lg:text-7xl">{title}</Tag>
       {intro && <p className={`mt-6 text-lg leading-relaxed ${light ? "text-neutral-600" : "text-mist"}`}>{intro}</p>}
     </div>
   );
@@ -133,15 +135,15 @@ export function Heading({
 /** Interior page hero banner */
 export function PageHero({ eyebrow, title, intro, children }: { eyebrow: string; title: ReactNode; intro?: ReactNode; children?: ReactNode }) {
   return (
-    <section className="photo-slot relative overflow-hidden border-b border-iron pb-16 pt-20 sm:pb-24 sm:pt-28">
-      <LogoMark className="pointer-events-none absolute -right-16 -top-10 h-[28rem] w-[28rem] text-white opacity-[0.04]" />
+    <section className="photo-slot relative overflow-hidden border-b border-iron pb-16 pt-20 text-bone sm:pb-24 sm:pt-28">
+      <Watermark className="absolute -right-24 top-1/2 hidden h-[30rem] w-[30rem] -translate-y-1/2 opacity-[0.09] md:block" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
-      <Container>
-        <p className="mb-5 flex items-center gap-3 font-display text-sm font-bold uppercase tracking-[0.3em] text-gold">
+      <Container className="relative">
+        <p className="mb-5 flex items-center gap-3 font-display text-base uppercase tracking-[0.3em] text-gold">
           <span className="h-px w-8 bg-current" />
           {eyebrow}
         </p>
-        <h1 className="max-w-4xl font-display text-6xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">{title}</h1>
+        <h1 className="max-w-4xl font-display text-6xl uppercase leading-[0.95] sm:text-7xl lg:text-8xl">{title}</h1>
         {intro && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-mist">{intro}</p>}
         {children && <div className="mt-8 flex flex-wrap gap-3">{children}</div>}
       </Container>
@@ -171,20 +173,20 @@ export function Photo({
   if (src) {
     return (
       <div className={`relative overflow-hidden ${className}`}>
-        <Image src={src} alt={alt} fill sizes="(max-width: 768px) 100vw, 50vw" priority={priority} className="object-cover" />
+        <Image src={/^https?:/.test(src) ? src : asset(src)} alt={alt} fill sizes="(max-width: 768px) 100vw, 50vw" priority={priority} className="object-cover" />
       </div>
     );
   }
   return (
     <div role="img" aria-label={alt} className={`photo-slot relative flex items-end overflow-hidden ${className}`}>
-      <LogoMark className="absolute left-1/2 top-1/2 h-1/2 max-h-48 w-auto -translate-x-1/2 -translate-y-1/2 text-white opacity-[0.07]" />
+      <Logo decorative className="pointer-events-none absolute left-1/2 top-1/2 h-1/2 max-h-44 w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.1]" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-      {label && <span className="relative z-10 p-4 font-display text-xs font-semibold uppercase tracking-[0.25em] text-white/50">{label}</span>}
+      {label && <span className="relative z-10 p-4 font-display text-sm uppercase tracking-[0.2em] text-white/55">{label}</span>}
     </div>
   );
 }
 
 export function Pill({ children, tone = "dark" }: { children: ReactNode; tone?: "dark" | "gold" | "light" }) {
   const t = tone === "gold" ? "bg-gold text-black" : tone === "light" ? "bg-black text-white" : "bg-white/10 text-white";
-  return <span className={`inline-block px-2.5 py-1 font-display text-xs font-bold uppercase tracking-[0.15em] ${t}`}>{children}</span>;
+  return <span className={`inline-block rounded-full px-3 py-1 font-display text-xs uppercase tracking-[0.15em] ${t}`}>{children}</span>;
 }

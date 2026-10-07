@@ -21,7 +21,7 @@ const GROUPS: { id: Group; title: string; blurb: string }[] = [
 ];
 const STEPS = ["Training", "Date & time", "Account", "Pay", "Confirmed"];
 
-const groupOf = (s: Session): Group => (s.kind === "camp" || s.kind === "clinic" ? "event" : s.kind === "private" ? "private" : "small-group");
+const groupOf = (s: Session): Group => (s.kind === "camp" || s.kind === "clinic" || s.kind === "event" ? "event" : s.kind === "private" ? "private" : "small-group");
 
 function icsFor(b: Booking, s: Session | undefined, app: AppState) {
   if (!s) return "";
