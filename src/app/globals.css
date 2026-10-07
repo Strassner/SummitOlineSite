@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #0a0a0a;
+  --color-coal: #111111;
+  --color-steel: #1a1a1a;
+  --color-iron: #2a2a2a;
+  --color-ash: #8c8c8c;
+  --color-mist: #c9c9c6;
+  --color-bone: #f4f4f2;
+  --color-gold: #b39a62;
+  --color-gold-dim: #8a7646;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow), "Arial Narrow", Impact, sans-serif;
+
+  --animate-marquee: marquee 38s linear infinite;
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #000;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Angled "cut corner" used on buttons and cards for an athletic feel */
+.cut {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+}
+.cut-lg {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+}
+
+/* Photo-slot texture: dark diagonal lines + vignette until real photography is dropped in */
+.photo-slot {
+  background-color: #141414;
+  background-image:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.035) 0,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
+}
+
+/* Form controls */
+.field {
+  width: 100%;
+  background: var(--color-steel);
+  border: 1px solid var(--color-iron);
+  color: var(--color-bone);
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  min-height: 3rem;
+  transition: border-color 0.2s;
+}
+.field:focus {
+  border-color: var(--color-gold);
+  outline: none;
+}
+.field::placeholder {
+  color: var(--color-ash);
+}
+.light .field {
+  background: #fff;
+  border-color: #d4d4d0;
+  color: #0a0a0a;
+}
