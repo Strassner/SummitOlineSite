@@ -8,9 +8,9 @@ import { Button, Container } from "./ui";
 
 const LINKS = [
   { href: "/account", label: "My Profile" },
-  { href: "/account/membership", label: "My Membership" },
+  // { href: "/account/membership", label: "My Membership" },
   { href: "/account/bookings", label: "My Bookings" },
-  { href: "/account/content", label: "My Content" },
+  // { href: "/account/content", label: "My Content" },
   { href: "/account/payments", label: "Payments" },
 ];
 

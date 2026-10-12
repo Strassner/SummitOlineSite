@@ -20,7 +20,7 @@ export function SocialFeed() {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-          {["Technique", "Training", "Camp day", "Film study", "Strength", "Game day"].map((label) => (
+          {["Technique", "Training", "Session day", "Film study", "Strength", "Game day"].map((label) => (
             <a key={label} href={ig.href} target="_blank" rel="noopener noreferrer" aria-label={`${label} on Instagram`} className="group relative block overflow-hidden">
               <Photo alt={`${label} post on Instagram`} label={label} className="aspect-square w-full transition-transform duration-500 group-hover:scale-105" />
               <span className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100">

@@ -7,8 +7,8 @@ export default function NotFound() {
       <h1 className="mt-4 font-display text-7xl font-extrabold uppercase leading-none sm:text-9xl">Off the line.</h1>
       <p className="mx-auto mt-6 max-w-md text-mist">That page doesn&apos;t exist. Let&apos;s get you back to the snap.</p>
       <div className="mt-10 flex justify-center gap-3">
-        <Button href="/" arrow>Home</Button>
-        <Button href="/calendar" variant="outline">Calendar</Button>
+        <Button href="/calendar" arrow>Book a Session</Button>
+        {/* <Button href="/" arrow>Home</Button> */}
       </div>
     </Container>
   );

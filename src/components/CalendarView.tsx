@@ -8,7 +8,9 @@ import { getCoaches, getSessions, spotsLeft, useApp } from "@/lib/store";
 import type { SessionKind } from "@/lib/types";
 import { SessionRow } from "./Sessions";
 
-const KINDS: ("all" | SessionKind)[] = ["all", "private", "small-group", "clinic", "camp", "event"];
+// Only group coaching is offered right now, so there is nothing to filter by type.
+// const KINDS: ("all" | SessionKind)[] = ["all", "private", "small-group", "clinic", "camp", "event"];
+const KINDS: ("all" | SessionKind)[] = ["all"];
 const MONTHS = 3;
 
 export function CalendarView() {
@@ -46,7 +48,7 @@ export function CalendarView() {
     <div>
       {/* filters */}
       <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div role="tablist" aria-label="Filter by training type" className="flex flex-wrap gap-2">
+        <div role="tablist" aria-label="Filter by training type" className={`${KINDS.length > 1 ? "flex" : "hidden"} flex-wrap gap-2`}>
           {KINDS.map((k) => (
             <button
               key={k}

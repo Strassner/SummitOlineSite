@@ -33,9 +33,12 @@ export function CoachCard({ coach, compact = false }: { coach: Coach; compact?: 
           </>
         )}
         <div className="mt-auto pt-6">
-          <Button href={`/coaches/${coach.slug}`} variant="outline" size="sm" arrow>
-            View profile
+          <Button href={`/book?coach=${coach.id}`} variant="outline" size="sm" arrow>
+            Book a Session
           </Button>
+          {/* <Button href={`/coaches/${coach.slug}`} variant="outline" size="sm" arrow>
+            View profile
+          </Button> */}
         </div>
       </div>
     </article>

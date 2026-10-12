@@ -9,7 +9,8 @@ export const SITE = {
   tagline: "Stronger Linemen, Higher Standards.",
   motto: "Serious Training. Serious Development.",
   description:
-    "Summit Line Academy is Kansas City's offensive-line-specific football training academy: private training, small groups, memberships, camps and clinics for youth, high school and college linemen.",
+    // "Summit Line Academy is Kansas City's offensive-line-specific football training academy: private training, small groups, memberships, camps and clinics for youth, high school and college linemen.",
+    "Summit Line Academy is Kansas City's offensive-line-specific football training academy. Book small-group offensive line coaching online for youth, high school and college linemen.",
   // PLACEHOLDER: set to the production domain
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.summitlineacademy.com",
   email: "train@summitlineacademy.com", // taken from the footer reference in the brief
@@ -44,10 +45,10 @@ export const NAV = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/training", label: "Training" },
-  { href: "/memberships", label: "Memberships" },
+  // { href: "/memberships", label: "Memberships" },
   { href: "/calendar", label: "Calendar" },
-  { href: "/camps-clinics", label: "Camps & Clinics" },
-  { href: "/content", label: "Content" },
+  // { href: "/camps-clinics", label: "Camps & Clinics" },
+  // { href: "/content", label: "Content" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

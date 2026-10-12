@@ -5,9 +5,10 @@ import { Button, Heading, PageHero, Photo, Section } from "@/components/ui";
 import { TRAINING_TYPES } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Offensive Line Training Programs",
+  title: "Offensive Line Group Coaching",
   description:
-    "Private offensive line training, small-group sessions, team training, camps and clinics in Kansas City. Position-specific coaching for youth, high school and college linemen.",
+    // "Private offensive line training, small-group sessions, team training, camps and clinics in Kansas City. Position-specific coaching for youth, high school and college linemen.",
+    "Small-group offensive line coaching in Kansas City. Position-specific sessions for youth, high school and college linemen, booked online through our calendar.",
   alternates: { canonical: "/training" },
 };
 
@@ -21,10 +22,10 @@ export default function TrainingPage() {
             Every rep <span className="text-gold">coached.</span>
           </>
         }
-        intro="Choose the format that fits your athlete. Every option runs on the same Summit curriculum: technique, strength, IQ and discipline."
+        intro="Small-group, position-specific coaching on the Summit curriculum: technique, strength, IQ and discipline. Pick a time on the calendar and book online."
       >
-        <Button href="/book" arrow>Book a Session</Button>
-        <Button href="/memberships" variant="outline">View Memberships</Button>
+        <Button href="/calendar" arrow>Book a Session</Button>
+        {/* <Button href="/memberships" variant="outline">View Memberships</Button> */}
       </PageHero>
 
       {TRAINING_TYPES.map((t, i) => {

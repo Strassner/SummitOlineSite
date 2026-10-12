@@ -65,9 +65,9 @@ export default async function CoachPage(props: PageProps<"/coaches/[slug]">) {
               <Button href={`/book?coach=${coach.id}`} size="lg" arrow>
                 Book with {coach.name}
               </Button>
-              <Button href="/coaches" size="lg" variant="outline">
+              {/* <Button href="/coaches" size="lg" variant="outline">
                 All coaches
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

@@ -8,7 +8,8 @@ import { Button } from "./ui";
 
 const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "";
 
-export const CONTACT_TOPICS = ["General Question", "Private Training", "Membership", "Camps/Clinics", "Team Training", "Partnership/Sponsorship"];
+// export const CONTACT_TOPICS = ["General Question", "Private Training", "Membership", "Camps/Clinics", "Team Training", "Partnership/Sponsorship"];
+export const CONTACT_TOPICS = ["General Question", "Group Coaching", "Partnership/Sponsorship"];
 
 export function ContactForm() {
   const params = useSearchParams();

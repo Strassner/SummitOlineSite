@@ -24,7 +24,8 @@ export const COACHES: Coach[] = [
     certifications: ["[Certification]", "[Certification]"],
     philosophy:
       "Great linemen are built from the ground up. Master the stance, the first step and the hands, then layer in strength, football IQ and discipline until the technique holds up under pressure.",
-    bio: "Founder of Summit Line Academy. Leads private training, small-group sessions and the Summit curriculum from stance to finish.",
+    // bio: "Founder of Summit Line Academy. Leads private training, small-group sessions and the Summit curriculum from stance to finish.",
+    bio: "Founder of Summit Line Academy. Leads small-group sessions and the Summit curriculum from stance to finish.",
   },
   {
     id: "coach-2",
@@ -132,22 +133,22 @@ interface Template {
 
 const WEEKLY: Template[] = [
   { key: "mon-fund", weekday: 0, start: "17:30", end: "18:30", kind: "small-group", title: "OL Fundamentals · Small Group", coachId: "coach-1", capacity: 8, baseTaken: 4, price: 45, credits: 1, description: "Stance, first step, hand placement and footwork fundamentals in a competitive small-group setting.", ageRange: "Grades 6–12" },
-  { key: "tue-priv-a", weekday: 1, start: "16:00", end: "17:00", kind: "private", title: "Private Training · 1-on-1", coachId: "coach-1", capacity: 1, baseTaken: 0, price: 95, credits: 2, description: "One-on-one, position-specific instruction with technique evaluation and individualized plan." },
-  { key: "tue-priv-b", weekday: 1, start: "17:00", end: "18:00", kind: "private", title: "Private Training · 1-on-1", coachId: "coach-2", capacity: 1, baseTaken: 1, price: 95, credits: 2, description: "One-on-one, position-specific instruction with technique evaluation and individualized plan." },
+  // { key: "tue-priv-a", weekday: 1, start: "16:00", end: "17:00", kind: "private", title: "Private Training · 1-on-1", coachId: "coach-1", capacity: 1, baseTaken: 0, price: 95, credits: 2, description: "One-on-one, position-specific instruction with technique evaluation and individualized plan." },
+  // { key: "tue-priv-b", weekday: 1, start: "17:00", end: "18:00", kind: "private", title: "Private Training · 1-on-1", coachId: "coach-2", capacity: 1, baseTaken: 1, price: 95, credits: 2, description: "One-on-one, position-specific instruction with technique evaluation and individualized plan." },
   { key: "wed-pass", weekday: 2, start: "18:00", end: "19:15", kind: "small-group", title: "Pass Protection Lab · Small Group", coachId: "coach-2", capacity: 8, baseTaken: 5, price: 45, credits: 1, description: "Pass sets, hand fighting, anchor and recognition against live rush looks.", ageRange: "Grades 8–12 + college" },
-  { key: "thu-priv-a", weekday: 3, start: "16:30", end: "17:30", kind: "private", title: "Private Training · 1-on-1", coachId: "coach-3", capacity: 1, baseTaken: 0, price: 95, credits: 2, description: "One-on-one, position-specific instruction with technique evaluation and individualized plan." },
+  // { key: "thu-priv-a", weekday: 3, start: "16:30", end: "17:30", kind: "private", title: "Private Training · 1-on-1", coachId: "coach-3", capacity: 1, baseTaken: 0, price: 95, credits: 2, description: "One-on-one, position-specific instruction with technique evaluation and individualized plan." },
   { key: "thu-strength", weekday: 3, start: "18:00", end: "19:00", kind: "small-group", title: "Strength & Movement · Small Group", coachId: "coach-3", capacity: 10, baseTaken: 3, price: 40, credits: 1, description: "Lineman-specific strength, mobility and movement patterns that carry onto the field.", ageRange: "Grades 7–12" },
   { key: "sat-run", weekday: 5, start: "09:00", end: "10:15", kind: "small-group", title: "Run Game Lab · Small Group", coachId: "coach-3", capacity: 8, baseTaken: 6, price: 45, credits: 1, description: "Drive blocks, combos, climbs and pulls with a focus on leverage and finish.", ageRange: "Grades 8–12 + college" },
   { key: "sat-youth", weekday: 5, start: "10:30", end: "11:30", kind: "small-group", title: "Youth OL Academy · Small Group", coachId: "coach-1", capacity: 10, baseTaken: 4, price: 40, credits: 1, description: "Foundational technique and football IQ for our youngest linemen.", ageRange: "Ages 9–13" },
 ];
 
 const EVENTS: { offset: number; t: Omit<Template, "weekday" | "key"> & { key: string; bring: string[] } }[] = [
-  { offset: 12, t: { key: "clinic-pass", start: "09:00", end: "12:00", kind: "clinic", title: "Pass Protection Clinic", coachId: "coach-2", capacity: 24, baseTaken: 11, price: 65, credits: 0, ageRange: "Grades 8–12", description: "A half-day deep dive on pass sets, hand placement, anchor and blitz pickup with live reps and film.", bring: ["Cleats & turf shoes", "Football pants & practice jersey", "Water bottle", "Mouthguard"] } },
-  { offset: 19, t: { key: "clinic-run", start: "09:00", end: "12:00", kind: "clinic", title: "Run Game & Combo Blocks Clinic", coachId: "coach-3", capacity: 24, baseTaken: 7, price: 65, credits: 0, ageRange: "Grades 8–12", description: "Drive blocks, double teams, climbs and pulls, taught by position with a focus on leverage and finish.", bring: ["Cleats & turf shoes", "Football pants & practice jersey", "Water bottle", "Mouthguard"] } },
-  { offset: 26, t: { key: "event-showcase", start: "10:00", end: "12:00", kind: "event", title: "Summit Open House & Athlete Showcase", coachId: "coach-1", capacity: 60, baseTaken: 14, price: 0, credits: 0, ageRange: "All ages & families", description: "Meet the coaches, see a live training demo, tour the program and learn how Summit develops linemen. Free to attend: register to reserve your spot.", bring: ["Athletic shoes", "Water bottle", "Questions for the coaches"] } },
-  { offset: 33, t: { key: "camp-summit", start: "08:30", end: "15:00", kind: "camp", title: "Summit OL Camp · Full Day", coachId: "coach-1", capacity: 40, baseTaken: 18, price: 175, credits: 0, ageRange: "Grades 7–12", description: "Our flagship day camp: technique stations, 1-on-1s, football IQ sessions and a competitive finish. Lunch not included.", bring: ["Cleats & turf shoes", "Practice gear", "Lunch & water", "Notebook"] } },
-  { offset: 47, t: { key: "clinic-youth", start: "13:00", end: "15:00", kind: "clinic", title: "Youth OL Skills Clinic", coachId: "coach-1", capacity: 30, baseTaken: 9, price: 45, credits: 0, ageRange: "Ages 9–13", description: "A fun, high-rep introduction to offensive line fundamentals for younger athletes.", bring: ["Cleats or athletic shoes", "Water bottle", "Mouthguard"] } },
-  { offset: 61, t: { key: "camp-college", start: "09:00", end: "14:00", kind: "camp", title: "College Prep OL Camp", coachId: "coach-2", capacity: 30, baseTaken: 12, price: 195, credits: 0, ageRange: "Grades 10–12", description: "Recruit-focused development: advanced technique, film review and measurable testing guidance.", bring: ["Cleats & turf shoes", "Practice gear", "Lunch & water", "Highlight film link (optional)"] } },
+  // { offset: 12, t: { key: "clinic-pass", start: "09:00", end: "12:00", kind: "clinic", title: "Pass Protection Clinic", coachId: "coach-2", capacity: 24, baseTaken: 11, price: 65, credits: 0, ageRange: "Grades 8–12", description: "A half-day deep dive on pass sets, hand placement, anchor and blitz pickup with live reps and film.", bring: ["Cleats & turf shoes", "Football pants & practice jersey", "Water bottle", "Mouthguard"] } },
+  // { offset: 19, t: { key: "clinic-run", start: "09:00", end: "12:00", kind: "clinic", title: "Run Game & Combo Blocks Clinic", coachId: "coach-3", capacity: 24, baseTaken: 7, price: 65, credits: 0, ageRange: "Grades 8–12", description: "Drive blocks, double teams, climbs and pulls, taught by position with a focus on leverage and finish.", bring: ["Cleats & turf shoes", "Football pants & practice jersey", "Water bottle", "Mouthguard"] } },
+  // { offset: 26, t: { key: "event-showcase", start: "10:00", end: "12:00", kind: "event", title: "Summit Open House & Athlete Showcase", coachId: "coach-1", capacity: 60, baseTaken: 14, price: 0, credits: 0, ageRange: "All ages & families", description: "Meet the coaches, see a live training demo, tour the program and learn how Summit develops linemen. Free to attend: register to reserve your spot.", bring: ["Athletic shoes", "Water bottle", "Questions for the coaches"] } },
+  // { offset: 33, t: { key: "camp-summit", start: "08:30", end: "15:00", kind: "camp", title: "Summit OL Camp · Full Day", coachId: "coach-1", capacity: 40, baseTaken: 18, price: 175, credits: 0, ageRange: "Grades 7–12", description: "Our flagship day camp: technique stations, 1-on-1s, football IQ sessions and a competitive finish. Lunch not included.", bring: ["Cleats & turf shoes", "Practice gear", "Lunch & water", "Notebook"] } },
+  // { offset: 47, t: { key: "clinic-youth", start: "13:00", end: "15:00", kind: "clinic", title: "Youth OL Skills Clinic", coachId: "coach-1", capacity: 30, baseTaken: 9, price: 45, credits: 0, ageRange: "Ages 9–13", description: "A fun, high-rep introduction to offensive line fundamentals for younger athletes.", bring: ["Cleats or athletic shoes", "Water bottle", "Mouthguard"] } },
+  // { offset: 61, t: { key: "camp-college", start: "09:00", end: "14:00", kind: "camp", title: "College Prep OL Camp", coachId: "coach-2", capacity: 30, baseTaken: 12, price: 195, credits: 0, ageRange: "Grades 10–12", description: "Recruit-focused development: advanced technique, film review and measurable testing guidance.", bring: ["Cleats & turf shoes", "Practice gear", "Lunch & water", "Highlight film link (optional)"] } },
 ];
 
 /** Builds the next ~7 weeks of recurring sessions plus scheduled camps / clinics, relative to `today`. */
@@ -212,46 +213,46 @@ export const KIND_LABEL: Record<Session["kind"], string> = {
 /* --------------------------------- services --------------------------------- */
 
 export const SERVICES = [
-  { slug: "private-training", title: "Private Training", blurb: "One-on-one offensive line instruction.", href: "/training#private-training", kind: "private" },
-  { slug: "small-group", title: "Small Group Training", blurb: "High-quality coaching in a competitive small-group environment.", href: "/training#small-group", kind: "small-group" },
-  { slug: "memberships", title: "Memberships", blurb: "Recurring training options for athletes who want consistent development.", href: "/memberships", kind: null },
-  { slug: "camps-clinics", title: "Camps & Clinics", blurb: "Special events, position-specific clinics and development opportunities.", href: "/camps-clinics", kind: null },
-  { slug: "online-content", title: "Online Content", blurb: "Training resources, educational content, technique breakdowns and football development material.", href: "/content", kind: null },
+  // { slug: "private-training", title: "Private Training", blurb: "One-on-one offensive line instruction.", href: "/training#private-training", kind: "private" },
+  { slug: "small-group", title: "Small Group Training", blurb: "High-quality group coaching in a competitive small-group environment. Pick a time on the calendar and book online.", href: "/calendar", kind: "small-group" },
+  // { slug: "memberships", title: "Memberships", blurb: "Recurring training options for athletes who want consistent development.", href: "/memberships", kind: null },
+  // { slug: "camps-clinics", title: "Camps & Clinics", blurb: "Special events, position-specific clinics and development opportunities.", href: "/camps-clinics", kind: null },
+  // { slug: "online-content", title: "Online Content", blurb: "Training resources, educational content, technique breakdowns and football development material.", href: "/content", kind: null },
 ] as const;
 
 export const TRAINING_TYPES = [
-  {
-    id: "private-training",
-    kind: "private" as const,
-    title: "Private Training",
-    summary: "The fastest path to cleaner technique. Every rep is yours.",
-    points: ["One-on-one coaching", "Position-specific instruction", "Individualized development plan", "Technique evaluation with film"],
-    cta: { label: "Book Now", href: "/book?type=private" },
-  },
+  // {
+  // id: "private-training",
+  // kind: "private" as const,
+  // title: "Private Training",
+  // summary: "The fastest path to cleaner technique. Every rep is yours.",
+  // points: ["One-on-one coaching", "Position-specific instruction", "Individualized development plan", "Technique evaluation with film"],
+  // cta: { label: "Book Now", href: "/book?type=private" },
+  // },
   {
     id: "small-group",
     kind: "small-group" as const,
     title: "Small Group Training",
     summary: "Competition raises the standard. Small groups keep the coaching personal.",
     points: ["Capped group sizes", "Position-specific drills", "Competitive environment", "Technique development every session"],
-    cta: { label: "View Schedule", href: "/calendar?type=small-group" },
+    cta: { label: "Book a Session", href: "/calendar" },
   },
-  {
-    id: "team-training",
-    kind: "team" as const,
-    title: "Team Training",
-    summary: "Bring Summit's curriculum to your program. Coming soon.",
-    points: ["High school teams", "Youth organizations", "Camps and team offseason programs", "Custom installs and film review"],
-    cta: { label: "Contact Us", href: "/contact?topic=Team%20Training" },
-  },
-  {
-    id: "camps-clinics",
-    kind: "clinic" as const,
-    title: "Camps & Clinics",
-    summary: "Event-based development: focused clinics and full-day camps.",
-    points: ["Position-specific clinics", "Full-day camps", "Open to all programs", "Limited spots per event"],
-    cta: { label: "View Schedule", href: "/camps-clinics" },
-  },
+  // {
+  // id: "team-training",
+  // kind: "team" as const,
+  // title: "Team Training",
+  // summary: "Bring Summit's curriculum to your program. Coming soon.",
+  // points: ["High school teams", "Youth organizations", "Camps and team offseason programs", "Custom installs and film review"],
+  // cta: { label: "Contact Us", href: "/contact?topic=Team%20Training" },
+  // },
+  // {
+  //   id: "camps-clinics",
+  //   kind: "clinic" as const,
+  //   title: "Camps & Clinics",
+  //   summary: "Event-based development: focused clinics and full-day camps.",
+  //   points: ["Position-specific clinics", "Full-day camps", "Open to all programs", "Limited spots per event"],
+  //   cta: { label: "View Schedule", href: "/camps-clinics" },
+  // },
 ];
 
 export const WHY = [

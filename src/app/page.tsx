@@ -20,11 +20,11 @@ export default function Home() {
           {SITE.heroVideo ? (
             <video className="absolute inset-0 -z-20 h-full w-full object-cover" src={asset(SITE.heroVideo)} autoPlay muted loop playsInline poster={SITE.heroImage ? asset(SITE.heroImage) : undefined} />
           ) : SITE.heroImage ? (
-            <Image src={asset(SITE.heroImage)} alt="A coach standing on the field of an empty stadium at dusk" fill priority sizes="100vw" className="-z-20 object-cover object-[60%_50%]" />
+            <Image src={asset(SITE.heroImage)} alt="Aerial view of a packed football stadium during a game" fill priority sizes="100vw" className="-z-20 object-cover object-center" />
           ) : (
             <div className="photo-slot absolute inset-0 -z-20" />
           )}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/15 via-black/10 to-black/55" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/45 to-black/75" />
           <div className="w-full max-w-7xl px-5 py-24 text-white sm:py-32">
             <h1 className="font-display text-[2.7rem] uppercase leading-[1] sm:whitespace-nowrap sm:text-7xl lg:text-[6.75rem]">Summit Line Academy</h1>
             <p className="mt-6 font-display text-2xl uppercase tracking-[0.08em] text-white sm:text-4xl">
@@ -34,15 +34,18 @@ export default function Home() {
               Position-specific offensive line training designed to develop stronger, smarter, and more technically sound linemen.
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button href="/book" size="lg" arrow>
+              <Button href="/calendar" size="lg" arrow>
                 Book a Session
               </Button>
-              <Button href="/memberships" size="lg" variant="outline">
+              {/* <Button href="/memberships" size="lg" variant="outline">
                 View Memberships
+              </Button> */}
+              <Button href="/calendar" size="lg" variant="outline">
+                View the Calendar
               </Button>
-              <Button href="#about" size="lg" variant="ghost">
+              {/* <Button href="#about" size="lg" variant="ghost">
                 Learn More
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
@@ -54,9 +57,11 @@ export default function Home() {
           <ol className="grid divide-iron sm:grid-cols-2 sm:divide-x lg:grid-cols-4 [&>li]:border-b [&>li]:border-iron lg:[&>li]:border-b-0">
             {[
               ["01", "Who we are", "An offensive-line-only academy.", "#about"],
-              ["02", "What we do", "Private, group, camps & online.", "#training"],
+              // ["02", "What we do", "Private, group, camps & online.", "#training"],
+              ["02", "What we do", "Small-group coaching, booked online.", "#training"],
               ["03", "Why Summit", "Technique, strength, IQ, discipline.", "#why"],
-              ["04", "How to start", "Pick a plan. Book. Train.", "#start"],
+              // ["04", "How to start", "Pick a plan. Book. Train.", "#start"],
+              ["04", "How to start", "Pick a time. Book. Train.", "#start"],
             ].map(([n, t, d, href]) => (
               <li key={n}>
                 <Link href={href} className="group flex items-start gap-4 px-2 py-7 transition-colors hover:bg-steel sm:px-6">
@@ -93,9 +98,12 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <Button href="/about" variant="dark" arrow>
-              Our Story
+            <Button href="/calendar" variant="dark" arrow>
+              Book a Session
             </Button>
+            {/* <Button href="/about" variant="dark" arrow>
+              Our Story
+            </Button> */}
           </Reveal>
           <Reveal delay={150}>
             <Photo alt="Offensive linemen working technique in a Summit small group session" label="Training photography" className="aspect-[4/5] w-full" />
@@ -106,11 +114,12 @@ export default function Home() {
       {/* TRAINING */}
       <Section id="training">
         <Reveal>
-          <Heading eyebrow="Training" title="Choose how you train." intro="Every option is built around the same Summit curriculum: pick the format that fits your athlete." />
+          {/* <Heading eyebrow="Training" title="Choose how you train." intro="Every option is built around the same Summit curriculum: pick the format that fits your athlete." /> */}
+          <Heading eyebrow="Training" title="Group coaching." intro="Position-specific small-group sessions on the Summit curriculum. Pick a time on the calendar and book online." />
         </Reveal>
         <div className="grid gap-px bg-iron sm:grid-cols-2 lg:grid-cols-6">
           {SERVICES.map((s, i) => (
-            <Reveal key={s.slug} delay={i * 80} className={i < 2 ? "lg:col-span-3" : "lg:col-span-2"}>
+            <Reveal key={s.slug} delay={i * 80} className={(SERVICES.length as number) === 1 ? "sm:col-span-2 lg:col-span-6" : (SERVICES.length as number) === 5 && i >= 2 ? "lg:col-span-2" : "lg:col-span-3"}>
               <Link href={s.href} className="group flex h-full min-h-56 flex-col justify-between bg-coal p-8 transition-colors hover:bg-white hover:text-black">
                 <div>
                   <p className="font-display text-lg text-gold group-hover:text-gold-dim">0{i + 1}</p>
@@ -118,7 +127,7 @@ export default function Home() {
                   <p className="mt-3 text-ash group-hover:text-neutral-700">{s.blurb}</p>
                 </div>
                 <span className="mt-8 inline-flex items-center gap-2 font-display text-base uppercase tracking-[0.15em]">
-                  Explore <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Book a Session <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
             </Reveal>
@@ -148,9 +157,12 @@ export default function Home() {
         <Reveal>
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <Heading eyebrow="Coaches" title="Coached by the position." className="!mb-0" />
-            <Button href="/coaches" variant="outline" arrow>
-              Meet the Coaches
+            <Button href="/calendar" variant="outline" arrow>
+              Book a Session
             </Button>
+            {/* <Button href="/coaches" variant="outline" arrow>
+              Meet the Coaches
+            </Button> */}
           </div>
         </Reveal>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -195,7 +207,7 @@ export default function Home() {
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <Heading eyebrow="Upcoming" title="On the calendar." className="!mb-0" />
             <Button href="/calendar" arrow>
-              View Full Calendar
+              Book a Session
             </Button>
           </div>
         </Reveal>
@@ -212,7 +224,8 @@ export default function Home() {
         <ol className="grid gap-8 md:grid-cols-4">
           {[
             ["Learn", "See how we train and who we coach."],
-            ["Choose", "Pick private, group or a membership."],
+            // ["Choose", "Pick private, group or a membership."],
+            ["Choose", "Pick a group session on the calendar."],
             ["Book", "Select a time, create an account, pay."],
             ["Train", "Show up. Return to your member portal."],
           ].map(([t, d], i) => (
@@ -236,11 +249,11 @@ export default function Home() {
             Ready to take your game to the <span className="text-gold">next level?</span>
           </h2>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href="/memberships" size="lg" arrow>
+            {/* <Button href="/memberships" size="lg" arrow>
               View Memberships
-            </Button>
-            <Button href="/calendar" size="lg" variant="outline">
-              View Calendar
+            </Button> */}
+            <Button href="/calendar" size="lg" arrow>
+              Book a Session
             </Button>
           </div>
         </Container>

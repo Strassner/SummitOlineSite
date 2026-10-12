@@ -26,8 +26,9 @@ export default function AboutPage() {
         }
         intro="Summit Line Academy exists for one reason: to develop offensive linemen the right way."
       >
-        <Button href="/training" arrow>Explore Training</Button>
-        <Button href="/contact" variant="outline">Contact Us</Button>
+        <Button href="/calendar" arrow>Book a Session</Button>
+        {/* <Button href="/training" arrow>Explore Training</Button> */}
+        {/* <Button href="/contact" variant="outline">Contact Us</Button> */}
       </PageHero>
 
       <Section tone="light">

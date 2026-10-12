@@ -25,7 +25,8 @@ import { Field } from "./AuthForms";
 import { coachName } from "./Sessions";
 import { Button, Container, Pill } from "./ui";
 
-const TABS = ["Overview", "Schedule", "Memberships", "Customers", "Bookings", "Payments", "Content", "Coaches", "Announcements"] as const;
+// const TABS = ["Overview", "Schedule", "Memberships", "Customers", "Bookings", "Payments", "Content", "Coaches", "Announcements"] as const;
+const TABS = ["Overview", "Schedule", "Customers", "Bookings", "Payments", "Coaches", "Announcements"] as const;
 type Tab = (typeof TABS)[number];
 
 // Sample customer rows (a real backend supplies these)
@@ -180,7 +181,8 @@ export function AdminPortal() {
         </div>
       )}
 
-      {tab === "Memberships" && (
+      {/* Memberships tab hidden: group coaching only */}
+      {(tab as string) === "Memberships" && (
         <div className="grid gap-6 lg:grid-cols-3">
           {plans.map((p) => (
             <form
@@ -254,7 +256,8 @@ export function AdminPortal() {
         </>
       )}
 
-      {tab === "Content" && (
+      {/* Content tab hidden: group coaching only */}
+      {(tab as string) === "Content" && (
         <div className="space-y-8">
           <form
             className="grid gap-4 border border-iron bg-steel p-6 sm:grid-cols-[1fr_14rem_auto] sm:items-end"

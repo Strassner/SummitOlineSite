@@ -6,18 +6,18 @@ import { useState } from "react";
 import { KIND_LABEL } from "@/lib/data";
 import { addDays, formatDate, formatLong, formatRange, money } from "@/lib/dates";
 import { SITE } from "@/lib/site";
-import { bookSession, canUseCredit, getPlan, getSessions, priceFor, spotsLeft, useApp, type AppState } from "@/lib/store";
+import { addAthlete, bookSession, canUseCredit, getPlan, getSessions, priceFor, signUp, spotsLeft, useApp, type AppState } from "@/lib/store";
 import type { Booking, Session } from "@/lib/types";
-import { AthleteAdder, DemoNote, SignInForm, SignUpForm } from "./AuthForms";
+import { AthleteAdder, DemoNote, Field /* , SignInForm, SignUpForm */ } from "./AuthForms";
 import { CheckIcon, ClockIcon, PinIcon, UserIcon } from "./Icons";
 import { coachName } from "./Sessions";
 import { Button, Container } from "./ui";
 
 type Group = "private" | "small-group" | "event";
 const GROUPS: { id: Group; title: string; blurb: string }[] = [
-  { id: "private", title: "Private Training", blurb: "One-on-one, position-specific coaching." },
-  { id: "small-group", title: "Small Group", blurb: "Competitive small-group sessions." },
-  { id: "event", title: "Camps & Clinics", blurb: "Special events and position clinics." },
+  // { id: "private", title: "Private Training", blurb: "One-on-one, position-specific coaching." },
+  { id: "small-group", title: "Small Group Coaching", blurb: "Competitive small-group sessions." },
+  // { id: "event", title: "Camps & Clinics", blurb: "Special events and position clinics." },
 ];
 const STEPS = ["Training", "Date & time", "Account", "Pay", "Confirmed"];
 
@@ -47,11 +47,13 @@ export function BookingFlow() {
   const app = useApp();
   const params = useSearchParams();
   const sessionParam = params.get("session");
-  const typeParam = params.get("type");
+  // const typeParam = params.get("type");
   const coachParam = params.get("coach");
 
-  const initialGroup: Group | null = typeParam === "private" ? "private" : typeParam === "small-group" ? "small-group" : typeParam === "camp" || typeParam === "clinic" || typeParam === "event" ? "event" : null;
-  const [step, setStep] = useState(sessionParam ? 3 : initialGroup ? 2 : 1);
+  // Only group coaching is offered right now, so booking starts at "Date & time".
+  const initialGroup: Group | null = "small-group";
+  // const initialGroup: Group | null = typeParam === "private" ? "private" : typeParam === "small-group" ? "small-group" : typeParam === "camp" || typeParam === "clinic" || typeParam === "event" ? "event" : null;
+  const [step, setStep] = useState(sessionParam ? 3 : 2);
   const [group, setGroup] = useState<Group | null>(initialGroup);
   const [sessionId, setSessionId] = useState<string | null>(sessionParam);
   const [athleteId, setAthleteId] = useState<string | null>(null);
@@ -59,7 +61,7 @@ export function BookingFlow() {
   const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState("");
   const [booking, setBooking] = useState<Booking | null>(null);
-  const [hasAccount, setHasAccount] = useState(false);
+  // const [hasAccount, setHasAccount] = useState(false); // login/sign-in is hidden for now
 
   if (!app.ready) return <Container className="py-20"><div className="h-96 animate-pulse bg-steel" aria-busy="true" /></Container>;
 
@@ -123,7 +125,7 @@ export function BookingFlow() {
           {step === 1 && (
             <section>
               <h1 className="mb-6 font-display text-5xl font-extrabold uppercase leading-none">Choose training</h1>
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2">
                 {GROUPS.map((g) => (
                   <button
                     key={g.id}
@@ -148,10 +150,8 @@ export function BookingFlow() {
               <h1 className="mb-2 font-display text-5xl font-extrabold uppercase leading-none">Pick a date & time</h1>
               <p className="mb-6 text-ash">
                 {GROUPS.find((g) => g.id === activeGroup)?.title}
-                {coachParam && ` · with ${coachName(app, coachParam)}`} ·{" "}
-                <button className="text-gold underline-offset-4 hover:underline" onClick={() => setStep(1)}>
-                  change
-                </button>
+                {coachParam && ` · with ${coachName(app, coachParam)}`}
+                {/* · <button className="text-gold underline-offset-4 hover:underline" onClick={() => setStep(1)}>change</button> */}
               </p>
               {options.length === 0 && <p className="border border-iron p-8 text-center text-ash">No open sessions right now. <Link href="/contact" className="text-gold underline">Contact us</Link> to set one up.</p>}
               <div className="space-y-3" role="radiogroup" aria-label="Available sessions">
@@ -183,7 +183,7 @@ export function BookingFlow() {
                 })}
               </div>
               <div className="mt-8 flex gap-3">
-                <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
+                {/* <Button variant="outline" onClick={() => setStep(1)}>Back</Button> */}
                 <Button disabled={!session} onClick={() => setStep(3)} arrow>Continue</Button>
               </div>
             </section>
@@ -192,19 +192,41 @@ export function BookingFlow() {
           {/* STEP 3 */}
           {step === 3 && (
             <section>
-              <h1 className="mb-6 font-display text-5xl font-extrabold uppercase leading-none">{app.user ? "Who's training?" : "Create account"}</h1>
+              <h1 className="mb-6 font-display text-5xl font-extrabold uppercase leading-none">{app.user ? "Who's training?" : "Your details"}</h1>
               {!session && (
                 <p className="mb-6 border border-iron p-4 text-ash">
                   That session isn&apos;t available. <button className="text-gold underline" onClick={() => setStep(2)}>Choose another time</button>.
                 </p>
               )}
               {!app.user ? (
-                <div className="max-w-md">
-                  {hasAccount ? <SignInForm onDone={() => {}} /> : <SignUpForm onDone={() => {}} />}
-                  <button onClick={() => setHasAccount((h) => !h)} className="mt-6 text-sm text-gold underline-offset-4 hover:underline">
-                    {hasAccount ? "Need an account? Create one" : "Already have an account? Sign in"}
-                  </button>
-                </div>
+                <form
+                  className="grid max-w-2xl gap-5 sm:grid-cols-2"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const f = new FormData(e.currentTarget);
+                    signUp({ name: String(f.get("parent")).trim(), email: String(f.get("email")).trim(), phone: String(f.get("phone") ?? "") || undefined });
+                    const a = addAthlete({ name: String(f.get("athlete")).trim(), age: Number(f.get("age")), position: String(f.get("position")) || "OL" });
+                    setAthleteId(a.id);
+                    setStep(4);
+                  }}
+                >
+                  <Field label="Parent / guardian name"><input name="parent" required autoComplete="name" className="field" /></Field>
+                  <Field label="Email"><input name="email" type="email" required autoComplete="email" className="field" /></Field>
+                  <Field label="Mobile (optional)"><input name="phone" type="tel" autoComplete="tel" className="field" /></Field>
+                  <Field label="Athlete name"><input name="athlete" required className="field" /></Field>
+                  <Field label="Athlete age"><input name="age" type="number" min={6} max={25} required className="field" /></Field>
+                  <Field label="Position">
+                    <select name="position" defaultValue="OL" className="field">
+                      {["OL", "OT", "OG", "C", "DL", "Other"].map((pos) => <option key={pos}>{pos}</option>)}
+                    </select>
+                  </Field>
+                  <div className="flex gap-3 sm:col-span-2">
+                    <Button type="button" variant="outline" onClick={() => setStep(2)}>Back</Button>
+                    <Button type="submit" arrow>Continue</Button>
+                  </div>
+                  {/* Sign-in / create-account is hidden for now:
+                  {hasAccount ? <SignInForm onDone={() => {}} /> : <SignUpForm onDone={() => {}} />} */}
+                </form>
               ) : (
                 <div className="space-y-6">
                   <p className="text-ash">Signed in as <span className="text-white">{app.user.name}</span>. Select the athlete for this session.</p>
@@ -293,8 +315,8 @@ export function BookingFlow() {
               <p className="mt-2 text-sm text-ash">A confirmation email and a reminder the day before are sent automatically at launch. Add it to your calendar now:</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button onClick={download}>Add to calendar</Button>
-                <Button href="/account/bookings" variant="outline">My bookings</Button>
-                <Button href="/calendar" variant="ghost">Book another</Button>
+                {/* <Button href="/account/bookings" variant="outline">My bookings</Button> */}
+                <Button href="/calendar" variant="outline">Book Another Session</Button>
               </div>
             </section>
           )}
