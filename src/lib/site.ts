@@ -54,7 +54,7 @@ export const NAV = [
 
 // PLACEHOLDER profile URLs. Point these at the real accounts.
 export const SOCIALS = [
-  { key: "instagram", label: "Instagram", href: "https://www.instagram.com/" },
+  { key: "instagram", label: "Instagram", href: "https://www.instagram.com/summit.line.academy/" },
   { key: "facebook", label: "Facebook", href: "https://www.facebook.com/" },
   { key: "tiktok", label: "TikTok", href: "https://www.tiktok.com/" },
   { key: "youtube", label: "YouTube", href: "https://www.youtube.com/" },

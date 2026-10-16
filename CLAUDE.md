@@ -310,6 +310,7 @@ Because every merge goes live, a broken build must never reach `main`. Do not as
 - **Hosting:** static export on GitHub Pages. Merging into `main` runs `.github/workflows/deploy.yml` and **updates the live website** at https://strassner.github.io/SummitOlineSite/ (about a minute).
 - **Booking:** the real calendar is added by following `Setup-Calendar.md`.
 - **House style:** when removing a feature, **comment the code out** instead of deleting it so it can be restored.
+- **Instagram link:** every Instagram link on the site must go to https://www.instagram.com/summit.line.academy/. Use this URL for any new Instagram link you add, and fix any old Instagram link you find.
 - **Tone of the site:** modern, tough, athletic, minimal. Mostly black and white with a small gold accent.
 
 <!-- FILL IN (owner): -->
