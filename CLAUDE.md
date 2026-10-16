@@ -41,6 +41,7 @@ These are never optional. If you are about to break one, **stop and ask.**
 5. **One approval = one action.** A "yes" for committing is NOT a "yes" for pushing. A "yes" for pushing is NOT a "yes" for making a PR. A "yes" for a PR is NOT a "yes" for merging. Ask again at every stage.
 6. **NEVER work or push directly on `main`.** Always use your own work branch (see section 6). Work only reaches `main` through a reviewed pull request.
 7. **Pushing to GitHub is a big deal. Treat every push like a decision.** Everything pushed is meant to become a pull request later. So pushing should be on purpose, not a habit.
+8. **ALWAYS get the latest from `main` BEFORE you change any files.** Other people may have updated the website since the last session. Starting from old files causes problems later. See "Step 0" in section 6. This is a standing rule, so you do not need to ask first. Just tell the person what you are doing in plain words.
 
 ---
 
@@ -156,12 +157,36 @@ Plain meaning: a **branch** is your own copy of the project to work in, so you d
 - `main` = **the live website.** Do not work or push on it directly.
 - **Your work branch** = where you make changes. Create one before you change files. It starts as a copy of `main`.
 
-**Before any changes:**
-1. Check the current branch with `git branch --show-current`.
-2. If it is `main`, **stop and tell the person:** "You are on the live branch. I need to make your own work branch first so we do not change the live site by accident. OK?" Wait for a yes, then create the work branch.
-3. Name work branches like this: `your-name/short-description`. Example: `coach-sam/update-hero-photo`. Use lowercase, dashes, no spaces.
+### Step 0: Get the latest from `main` (do this before ANY change to files)
 
-**If `main` has new changes from other people** since the work branch was made, tell the person in plain words and ask before updating the work branch. If git reports a "conflict" (two people changed the same thing), explain it simply and ask how to proceed. Never resolve it silently.
+Plain meaning: other people may have changed the website since you last worked. **Pulling** brings those newest changes onto this computer so you start from the newest version.
+
+**Do this every time, at the start of a task, before you edit anything.** You do not need to ask first. Tell the person what you are doing:
+
+> "Before I change anything, I am getting the newest version of the website from GitHub (this is called a *pull*). That way we start from the latest work and do not clash with anyone else."
+
+Then, in this order:
+
+1. **Look for unsaved work.** Run `git status`.
+   - If there are changes that are not saved, **stop and tell the person in plain words.** Do not pull on top of them. Ask what they want to do: keep working on them, or set them aside.
+2. **Check the branch.** Run `git branch --show-current`.
+   - **If you are on `main`:** run `git pull --ff-only origin main`. Then make a new work branch from it (see below).
+   - **If you are on a work branch:** run `git fetch origin`, then bring in the latest `main` with `git merge origin/main`.
+3. **Say the result in one plain sentence.** Examples: "You already have the newest version." or "I brought in 3 updates from other people."
+4. **If git says it cannot do this cleanly** (a "conflict," meaning two people changed the same spot, or the pull is refused), **stop.** Explain in plain words and ask how to proceed. Never resolve it silently and never force it.
+5. **If you cannot reach GitHub** (no internet or no sign-in), tell the person and ask whether to continue with the older copy or wait. Do not silently skip this step.
+
+Only after Step 0 succeeds do you start making changes.
+
+### Making your work branch
+
+1. If you are on `main`, **tell the person:** "You are on the live branch. I need to make your own work branch first so we do not change the live site by accident. OK?" Wait for a yes, then create the work branch **from the freshly pulled `main`.**
+2. Name work branches like this: `your-name/short-description`. Example: `coach-sam/update-hero-photo`. Use lowercase, dashes, no spaces.
+3. Never make changes while sitting on `main`.
+
+### Before Stage 4 (merge), check again
+
+If `main` has moved ahead since the pull request was made, tell the person in plain words and bring the latest `main` into the work branch first. Re-run the checks in section 8 and ask for their OK again if anything changed.
 
 ---
 
@@ -236,6 +261,12 @@ Because every merge goes live, a broken build must never reach `main`. Do not as
 
 ## 10. Helpful plain-language messages
 
+**At the start of any task, before changing files:**
+> "First, I am getting the newest version of the website from GitHub so we start fresh. Nothing is changing yet."
+
+**When you are done pulling:**
+> "Done. [You already have the newest version. / I brought in N updates from other people.] Now I can start on your change."
+
 **When files change but nothing is saved yet:**
 > "I made the change. It is on your screen but not saved yet. Want to look at it first? When you are happy, tell me and I will ask about saving it."
 
@@ -260,6 +291,7 @@ Because every merge goes live, a broken build must never reach `main`. Do not as
 | **Repository (repo)** | The folder that holds the whole website and its history. |
 | **Branch** | Your own copy to work in, so the live copy stays safe. |
 | **Commit** | Saving a snapshot of your changes on your computer. |
+| **Pull** | Downloading the newest version of the website from GitHub to this computer, so you start from the latest work. |
 | **Push** | Uploading your saved snapshots to GitHub, on your branch. Other developers can see them. The public cannot. |
 | **Pull request (PR)** | A request that says "please review my work before it goes live." |
 | **Merge** | Adding your work to `main`. **This makes it live.** |
@@ -274,6 +306,7 @@ Because every merge goes live, a broken build must never reach `main`. Do not as
 - **Stack:** Next.js (App Router) + React + TypeScript + Tailwind CSS. **Read `AGENTS.md` first.** This Next.js version has breaking changes. Docs are in `node_modules/next/dist/docs/`.
 - **Run locally:** `npm install`, then `npm run dev` (opens at http://localhost:3000). Use this so the person can preview changes before anything is shared.
 - **Branches:** only `main` (live). Work branches merge into `main` through pull requests. There is no `develop`.
+- **Always pull the latest `main` before changing any files** (section 6, Step 0). Use `git pull --ff-only origin main` on `main`, or `git fetch origin` then `git merge origin/main` on a work branch.
 - **Hosting:** static export on GitHub Pages. Merging into `main` runs `.github/workflows/deploy.yml` and **updates the live website** at https://strassner.github.io/SummitOlineSite/ (about a minute).
 - **Booking:** the real calendar is added by following `Setup-Calendar.md`.
 - **House style:** when removing a feature, **comment the code out** instead of deleting it so it can be restored.
