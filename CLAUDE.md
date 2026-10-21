@@ -311,6 +311,7 @@ Because every merge goes live, a broken build must never reach `main`. Do not as
 - **Booking:** the real calendar is added by following `Setup-Calendar.md`.
 - **House style:** when removing a feature, **comment the code out** instead of deleting it so it can be restored.
 - **Instagram link:** every Instagram link on the site must go to https://www.instagram.com/summit.line.academy/. Use this URL for any new Instagram link you add, and fix any old Instagram link you find.
+- **Facebook link:** every Facebook link on the site must go to https://www.facebook.com/people/Summit-Line-Academy/61594557997351/. Use this URL for any new Facebook link you add, and fix any old Facebook link you find.
 - **Tone of the site:** modern, tough, athletic, minimal. Mostly black and white with a small gold accent.
 
 <!-- FILL IN (owner): -->
