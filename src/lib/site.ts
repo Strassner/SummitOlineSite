@@ -56,7 +56,7 @@ export const NAV = [
 export const SOCIALS = [
   { key: "instagram", label: "Instagram", href: "https://www.instagram.com/summit.line.academy/" },
   { key: "facebook", label: "Facebook", href: "https://www.facebook.com/people/Summit-Line-Academy/61594557997351/" },
-  { key: "tiktok", label: "TikTok", href: "https://www.tiktok.com/" },
+  { key: "tiktok", label: "TikTok", href: "https://www.tiktok.com/@summitlineacademy" },
   { key: "youtube", label: "YouTube", href: "https://www.youtube.com/" },
 ] as const;
 
